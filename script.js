@@ -1,0 +1,185 @@
+/* ---------- Collapsible sidebar for small screens ---------- */
+const toggleBtn = document.getElementById('toggleSidebar');
+const sidebarContent = document.getElementById('sidebarContent');
+
+if (toggleBtn) {
+  toggleBtn.addEventListener('click', () => {
+    const hidden = sidebarContent.getAttribute('aria-hidden') === 'true';
+    sidebarContent.setAttribute('aria-hidden', hidden ? 'false' : 'true');
+    toggleBtn.setAttribute('aria-expanded', hidden ? 'true' : 'false');
+    toggleBtn.textContent = hidden ? 'Hide' : 'Show';
+  });
+}
+
+/* ---------- Specialization switching + knowledge generation ---------- */
+const specializationSelect = document.getElementById('specialization');
+const projectGrid = document.getElementById('projectGrid');
+const domainTags = document.getElementById('domainTags');
+const conceptTags = document.getElementById('conceptTags');
+const toolTags = document.getElementById('toolTags');
+const knowledgeEmpty = document.getElementById('knowledgeEmpty');
+const trainingList = document.getElementById('trainingList');
+const downloadCvBtn = document.getElementById('download-cv'); // <-- your CV button link
+
+const TRAINING_BY_SPEC = {
+  'cloud': [
+    'Launched EC2/Linux VM and secured SSH (key-based auth, ufw).',
+    'Configured S3 static hosting and CloudFront distribution.',
+    'Wrote basic IaC snippets (AWS CLI / user data) and deployment notes.'
+  ],
+  'cybersecurity': [
+    'Built a Wazuh SIEM lab and tuned basic rules.',
+    'Practiced packet capture and log analysis (tcpdump/Wireshark).',
+    'Hardened Linux services with firewall rules and least-privilege users.'
+  ],
+  'it-support': [
+    'Resolved simulated tickets (account lockout, printer setup, Wi-Fi issues).',
+    'Documented SOPs for password resets and on-boarding.',
+    'Performed AD user lifecycle tasks in a lab (create/disable, groups).'
+  ]
+};
+
+function getUrlParameter(name) {
+  name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+  const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  const results = regex.exec(location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+// chip limits
+const DOMAIN_LIMIT = 2;
+const CONCEPT_LIMIT = 5;
+const TOOL_LIMIT = 5;
+
+function renderList(el, items) {
+  el.innerHTML = '';
+  items.forEach(txt => {
+    const li = document.createElement('li');
+    li.textContent = txt;
+    el.appendChild(li);
+  });
+}
+
+function slugifyTag(tag) {
+  return tag
+    .toLowerCase()
+    .replace(/\s+/g, '-')    // spaces to dashes
+    .replace(/[^\w\-]/g, ''); // remove non-alphanumeric except dash
+}
+
+// helper: render chips with counts + see all
+function renderChips(container, freqMap, kind, limit) {
+  container.innerHTML = '';
+
+  // sort by frequency desc, then alphabetically
+  const sorted = Object.entries(freqMap)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+  const showAll = sorted.length > limit;
+
+  function render(isExpanded) {
+    container.innerHTML = '';
+    const items = isExpanded ? sorted : sorted.slice(0, limit - 1);
+
+    // render chips
+    items.forEach(([label, count]) => {
+      const link = document.createElement('a');
+      link.href = `./tags/${slugifyTag(label)}.html`;
+      link.className = 'chip';
+      link.dataset.kind = kind;
+      // Only show count if it's greater than 1
+      link.textContent = count > 1 ? `${label} (${count})` : label;
+      container.appendChild(link);
+    });
+
+    // add toggle chip if needed
+    if (showAll) {
+      const toggleChip = document.createElement('a');
+      toggleChip.href = '#';
+      toggleChip.className = 'chip see-all';
+      toggleChip.textContent = isExpanded ? 'Show less' : 'Show all';
+      toggleChip.addEventListener('click', (e) => {
+        e.preventDefault();
+        render(!isExpanded); // toggle
+      });
+      container.appendChild(toggleChip);
+    }
+  }
+
+  render(false); // default collapsed
+}
+
+function updateView() {
+  const spec = specializationSelect.value;
+
+  // Filter projects
+  const cards = projectGrid.querySelectorAll('.project');
+  let visibleCount = 0;
+  cards.forEach(card => {
+    const specs = card.dataset.specialization.split(" ");
+    const show = specs.includes(spec);
+    card.style.display = show ? '' : 'none';
+    if (show) visibleCount++;
+  });
+
+  // Collect frequency maps
+  const domains = {};
+  const concepts = {};
+  const tools = {};
+
+  projectGrid.querySelectorAll(`.project[data-specialization*="${spec}"] .chip`).forEach(chip => {
+    const kind = chip.dataset.kind;
+    const text = chip.textContent.trim();
+    if (kind === 'domain') domains[text] = (domains[text] || 0) + 1;
+    if (kind === 'concept') concepts[text] = (concepts[text] || 0) + 1;
+    if (kind === 'tool') tools[text] = (tools[text] || 0) + 1;
+  });
+
+  // render chips with limits
+  renderChips(domainTags, domains, 'domain', DOMAIN_LIMIT);
+  renderChips(conceptTags, concepts, 'concept', CONCEPT_LIMIT);
+  renderChips(toolTags, tools, 'tool', TOOL_LIMIT);
+
+  knowledgeEmpty.style.display = visibleCount === 0 ? '' : 'none';
+
+  // Practical training
+  renderList(trainingList, TRAINING_BY_SPEC[spec] || []);
+
+  // Update CV download link
+  if (downloadCvBtn) {
+    const filename = `Ryan_Jamilosa_${spec}_resume_2025.pdf`;
+    downloadCvBtn.href = `./cv/${filename}`;
+  }
+}
+
+// Check for URL parameter on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const specParam = getUrlParameter('spec');
+  if (specParam && specializationSelect.querySelector(`option[value="${specParam}"]`)) {
+    specializationSelect.value = specParam;
+  }
+  updateView();
+});
+
+specializationSelect.addEventListener('change', updateView);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const halo = document.createElement('div');
+  halo.className = 'cursor-halo';
+  document.body.appendChild(halo);
+
+  document.addEventListener('mousemove', (e) => {
+    halo.style.left = `${e.clientX}px`;
+    halo.style.top = `${e.clientY}px`;
+  });
+
+  // Hide halo when mouse leaves window
+  document.addEventListener('mouseleave', () => {
+    halo.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    if (window.innerWidth > 980) {
+      halo.style.opacity = '0.3';
+    }
+  });
+});
