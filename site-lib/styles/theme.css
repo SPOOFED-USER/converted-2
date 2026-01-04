@@ -75,3 +75,6 @@ html, body {--theme-mode: dark;}
   --embed-padding:0 0 0 var(--size-4-4);
   color-scheme: dark;
 }
+/* Force dark mode only - disable light mode */
+body.theme-light {display: none !important;}
+html, body {--theme-mode: dark;}
