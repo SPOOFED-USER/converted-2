@@ -352,6 +352,14 @@ ul.clean{
   border:1px solid var(--chip-border);
   overflow: hidden;
 }
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.thumb a {
+  display: contents;
+}
 .card h3{ 
   margin:0 0 4px 0; 
   font-size:18px;
