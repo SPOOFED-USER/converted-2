@@ -363,7 +363,7 @@ ul.clean{
   font-size:14px; 
   line-height:1.5 
 }
-.card .tags{ margin-top:auto; padding-top: 8px; }
+.card .tags{ margin-top:0; padding-top: 0; }
 
 /* Rainbow animated highlight */
 .highlight {

@@ -40,6 +40,146 @@ body{--color-fade-speed:0.2s}.tree-icon{border:1px solid transparent;margin:0 4p
 
 
 
+
+
+/* Left sidebar (file explorer) - glow on right edge */
+.sidebar.is-left-sidebar,
+#left-sidebar,
+.sidebar:first-of-type {
+  border-right: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset -10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+/* Right sidebar (TOC/graph) - glow on left edge */
+.sidebar.is-right-sidebar,
+#right-sidebar,
+.sidebar:last-of-type {
+  border-left: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset 10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+
+
+
+
+/* Left sidebar (file explorer) - glow on right edge */
+.sidebar.is-left-sidebar,
+#left-sidebar,
+.sidebar:first-of-type {
+  border-right: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset -10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+/* Right sidebar (TOC/graph) - glow on left edge */
+.sidebar.is-right-sidebar,
+#right-sidebar,
+.sidebar:last-of-type {
+  border-left: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset 10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+
+
+
+
+/* Left sidebar (file explorer) - glow on right edge */
+.sidebar.is-left-sidebar,
+#left-sidebar,
+.sidebar:first-of-type {
+  border-right: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset -10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+/* Right sidebar (TOC/graph) - glow on left edge */
+.sidebar.is-right-sidebar,
+#right-sidebar,
+.sidebar:last-of-type {
+  border-left: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset 10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+
+
+
+
+/* Left sidebar (file explorer) - glow on right edge */
+.sidebar.is-left-sidebar,
+#left-sidebar,
+.sidebar:first-of-type {
+  border-right: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset -10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+/* Right sidebar (TOC/graph) - glow on left edge */
+.sidebar.is-right-sidebar,
+#right-sidebar,
+.sidebar:last-of-type {
+  border-left: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset 10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+
+
+
+
+/* Left sidebar (file explorer) - glow on right edge */
+.sidebar.is-left-sidebar,
+#left-sidebar,
+.sidebar:first-of-type {
+  border-right: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset -10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+/* Right sidebar (TOC/graph) - glow on left edge */
+.sidebar.is-right-sidebar,
+#right-sidebar,
+.sidebar:last-of-type {
+  border-left: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset 10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+
+
+
+
+/* Left sidebar (file explorer) - glow on right edge */
+.sidebar.is-left-sidebar,
+#left-sidebar,
+.sidebar:first-of-type {
+  border-right: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset -10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+/* Right sidebar (TOC/graph) - glow on left edge */
+.sidebar.is-right-sidebar,
+#right-sidebar,
+.sidebar:last-of-type {
+  border-left: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset 10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+
+
+
+
+/* Left sidebar (file explorer) - glow on right edge */
+.sidebar.is-left-sidebar,
+#left-sidebar,
+.sidebar:first-of-type {
+  border-right: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset -10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+/* Right sidebar (TOC/graph) - glow on left edge */
+.sidebar.is-right-sidebar,
+#right-sidebar,
+.sidebar:last-of-type {
+  border-left: 1px solid rgba(97, 175, 239, 0.3) !important;
+  box-shadow: inset 10px 0 20px rgba(97, 175, 239, 0.1) !important;
+}
+
+
+
 /* Dual sidebar styling with light blue glow borders */
 .sidebar {
   border-color: rgba(97, 175, 239, 0.3) !important;
