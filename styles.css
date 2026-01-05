@@ -1,6 +1,6 @@
 :root {
   /* Core colors from your request */
-  --bg: #20242B;           /* left side bg */
+  --bg: #272B34;           /* left side bg #20242B */
   --panel: #272B34;        /* right side bg */
   --panel-2: #2E323B;      /* slightly darker variant of right bg */
   --text: #DCDDDE;         /* text color */
@@ -9,15 +9,32 @@
   --accent-light: #7DC1FF; /* lighter accent */
   --accent-dark: #4C79CD;  /* active hyperlink */
   --chip: #20242B;         /* specialization dropdown */
-  --chip-border: #4A4D53;  /* slightly lighter border */
+  --chip-border: #4A4D53;  /* slightly lighter border #4A4D53 */
   --divider: #3D4148;      /* subtle divider */
-  --card: #2D3138;         /* card background */
+  --card: #252A32;         /* card background */
+  --card-hover: #2D3138;   /* card hover background */
+  --clickable-hover: #252A32;
   
   /* New complementary colors */
   --success: #7BC47F;      /* green for positive actions */
   --warning: #E5C07B;      /* yellow for warnings */
   --error: #E06C75;        /* red for errors */
   --info: #56B6C2;         /* teal for info */
+  
+  /* Typography - Standardized hierarchy */
+  --font-h1: 44px;         /* Largest - Sidebar name */
+  --font-h2: 32px;         /* Section titles */
+  --font-h3: 18px;         /* Subsection titles, card titles */
+  --font-h4: 16px;         /* Subheadings, tagline, category labels */
+  --font-body: 15px;       /* Standard body text, paragraphs */
+  --font-small: 14px;      /* Labels, secondary text, cards */
+  --font-xs: 13px;         /* Chips, metadata */
+  
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
   
   /* UI variables */
   --radius: 6px;
@@ -82,20 +99,51 @@ html { scroll-padding-top: 16px }
 body{
   margin:0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: var(--font-body);
+  font-weight: var(--font-weight-normal);
   color:var(--text);
   background: var(--bg);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* ---- Layout ---- */
 .app{
   display:flex;
   min-height:100vh;
+  position: relative;
+}
+
+/* Left side glow effect */
+.app::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(97, 175, 239, 0.3) 25%, rgba(97, 175, 239, 0.3) 75%, transparent 100%);
+  box-shadow: 20px 0 40px rgba(97, 175, 239, 0.15), inset -20px 0 40px rgba(97, 175, 239, 0.1);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Right side glow effect */
+.app::after {
+  content: "";
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(97, 175, 239, 0.3) 25%, rgba(97, 175, 239, 0.3) 75%, transparent 100%);
+  box-shadow: -20px 0 40px rgba(97, 175, 239, 0.15), inset 20px 0 40px rgba(97, 175, 239, 0.1);
+  pointer-events: none;
+  z-index: 10;
 }
 aside.sidebar{
   min-width:35%;
   max-width: 520px;
-  padding:56px 32px;
+  padding:56px 56px;
   position:sticky;
   top:0;
   align-self:flex-start;
@@ -123,7 +171,8 @@ main.content{
 
 /* ---- Sidebar ---- */
 h1{
-  font-size:44px;
+  font-size: var(--font-h1);
+  font-weight: var(--font-weight-bold);
   margin:0 0 6px 0;
   letter-spacing:.2px;
   color: var(--text);
@@ -131,13 +180,15 @@ h1{
 .title{ 
   color:var(--muted); 
   margin:0 0 12px 0; 
-  font-size: 18px;
+  font-size: var(--font-h4);
+  font-weight: var(--font-weight-medium);
 }
 .tagline{ 
   color:var(--muted); 
   font-style:italic; 
   margin:0 0 22px 0;
-  font-size: 16px;
+  font-size: var(--font-h4);
+  font-weight: var(--font-weight-normal);
 }
 .field { 
   display: flex; /* Changed from grid to flex */
@@ -148,7 +199,8 @@ h1{
 
 .field label { 
   color: var(--muted); 
-  font-size: 14px;
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-medium);
   letter-spacing: 0.5px;
   white-space: nowrap; /* Prevent label from wrapping */
   margin-bottom: 0; /* Remove any default bottom margin */
@@ -162,7 +214,6 @@ h1{
   border: 1px solid var(--chip-border);
   padding: 12px 38px 12px 12px;
   border-radius: 6px;
-  font-weight: 600;
   background-image:
       linear-gradient(45deg, transparent 50%, #888888 50%),
       linear-gradient(135deg, #888888 50%, transparent 50%);
@@ -176,7 +227,7 @@ h1{
 }
 
 .select:hover:not(:focus) {
-  background-color: #252A32;
+  background-color: var(--clickable-hover);
   color: #DCDDDE;
   background-image:
       linear-gradient(45deg, transparent 50%, #DCDDDE 50%),
@@ -206,7 +257,6 @@ h1{
   /* Remove the min-height that was causing overflow */
 }
 
-/* Media query for medium screens where overlap might occur */
 @media (min-width: 981px) and (max-height: 800px) {
   .icons {
     margin-bottom: 50px; /* Fixed margin instead of auto on shorter screens */
@@ -226,8 +276,8 @@ h1{
   
   /* Compact spacing for shorter screens */
   h1 { font-size: 36px; margin-bottom: 4px; }
-  .title { margin-bottom: 8px; }
-  .tagline { margin-bottom: 16px; }
+  .title { font-size: 16px; margin-bottom: 8px; }
+  .tagline { font-size: 14px; margin-bottom: 16px; }
   .field { margin: 12px 0 20px 0; }
 }
 
@@ -235,7 +285,7 @@ h1{
   width: 44px; 
   text-decoration: none;
   color: #888888;
-  font-weight: 600;
+  
   height: 44px; 
   border-radius: 6px;
   display: grid; 
@@ -254,7 +304,7 @@ h1{
 }
 
 .icon:hover {
-  background-color: #252A32;
+  background-color: var(--clickable-hover);
   color: #DCDDDE;
 }
 
@@ -274,10 +324,10 @@ section{
 }
 
 .section-title{
-  font-size:32px;
+  font-size: var(--font-h2);
+  font-weight: var(--font-weight-bold);
   margin:0 0 20px 0;
   line-height:1.15;
-  font-weight:800;
   color: var(--text);
 }
 
@@ -286,7 +336,8 @@ section{
 .split-group{ display:grid; gap:16px; margin-bottom:20px }
 .split-group h3{
   margin:0; 
-  font-size:16px; 
+  font-size: var(--font-h4);
+  font-weight: var(--font-weight-medium);
   color:var(--muted);
   letter-spacing: 0.5px;
 }
@@ -301,19 +352,31 @@ section{
   border-radius:6px;
   background:var(--chip);
   border:1px solid var(--chip-border);
-  font-size:13px;
+  font-size: var(--font-xs);
+  font-weight: var(--font-weight-normal);
   white-space:nowrap;
   transition: all 0.2s ease;
 }
 
 .chip:hover {
-  background-color: #252A32;
+  background-color: var(--clickable-hover);
   color: #DCDDDE;
 }
 
-.chip[data-kind="domain"]::before{ content:"∴"; color: var(--accent) }
-.chip[data-kind="concept"]::before{ content:"⟡"; color: var(--accent) }
-.chip[data-kind="tool"]::before{ content:"⟄"; color: var(--accent) }
+.chip::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(61%) sepia(70%) saturate(86%) hue-rotate(181deg) brightness(107%);
+}
+
+.chip[data-kind="domain"]::before{ background-image: url('x_assets/domain.svg') }
+.chip[data-kind="concept"]::before{ background-image: url('x_assets/concept.svg') }
+.chip[data-kind="tool"]::before{ background-image: url('x_assets/tool.svg') }
 
 ul.clean{ 
   padding-left:20px; 
@@ -339,7 +402,7 @@ ul.clean{
 }
 
 .card:hover {
-  background-color: #252A32;
+  background-color: var(--card-hover);
 }
 .thumb{
   border-radius:6px;
@@ -362,14 +425,16 @@ ul.clean{
 }
 .card h3{ 
   margin:0 0 4px 0; 
-  font-size:18px;
+  font-size: var(--font-h3);
+  font-weight: var(--font-weight-semibold);
   color: var(--text);
 }
 .card p{ 
   margin:0 0 6px 0; 
   color:var(--muted); 
-  font-size:14px; 
-  line-height:1.5 
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-normal);
+  line-height:1.5;
 }
 .card .tags{ margin-top:0; padding-top: 0; }
 
@@ -439,7 +504,6 @@ ul.clean{
   color:#888888;
   padding:10px 14px;
   border-radius:6px;
-  font-weight:700;
   cursor: pointer;
   transition: all 0.2s ease;
 }
