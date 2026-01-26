@@ -354,9 +354,15 @@ section{
   border:1px solid var(--chip-border);
   font-size: var(--font-xs);
   font-weight: var(--font-weight-normal);
+  box-shadow: var(--shadow);
   white-space:nowrap;
   transition: all 0.2s ease;
 }
+
+#projects .chip {
+    box-shadow: none;
+  }
+
 
 .chip:hover {
   background-color: var(--clickable-hover);
